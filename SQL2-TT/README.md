@@ -31,12 +31,12 @@ INSERT INTO actor_movie (actor_id, movie_id) VALUES (32, 22);
 
 ## 6. Crie uma cópia temporária da tabela de filmes.
 ```sql
-CREATE TEMPORARY TABLE new_movies SELECT * FROM movies;
+CREATE TEMPORARY TABLE temp_movies SELECT * FROM movies;
 ```
 
 ## 7. Elimine desta tabela temporária todos os filmes que ganharam menos de 5 prêmios.
 ```sql
-DELETE FROM new_movies WHERE awards < 5;
+DELETE FROM temp_movies WHERE awards < 5;
 ```
 
 ## 8. Obtenha a lista de todos os gêneros que possuem pelo menos um filme.
@@ -72,8 +72,13 @@ SELECT a.first_name FROM actors a INNER JOIN actor_movie am ON (a.id = am.actor_
 | Sean       |
 | Emilia     |
 
-## 10. Use o plano de explicação para analisar as consultas nos Ex. 6 e 7.
-
+## 10. Use o plano de explicação para analisar as consultas no Ex. 7.
+```sql
+7 - EXPLAIN DELETE FROM temp_movies WHERE awards < 5;
+```
+| id | select_type | table       | partitions | type | possible_keys | key  | key_len | ref  | rows | filtered | Extra       |
+|----|:-------------|:-------------|:------------|:------|:---------------|:------|:---------|:------|:------|:----------|:-------------:|
+|  1 | DELETE      | temp_movies | NULL       | ALL  | NULL          | NULL | NULL    | NULL |   22 |   100.00 | Using where |
 
 ## 11. O que são os índices? Para que servem?
 É um mecanismo de otimização para consultas, melhorando o acesso aos dados, fornecendo um caminho direto para os dados armazenados para evitar a execução de varreduras completas dos dados de uma tabela. Elas são bem utilizadas quando se sabe quais são os WHERE e JOIN a serem feitos, antecipando eles para melhorar a consulta.
