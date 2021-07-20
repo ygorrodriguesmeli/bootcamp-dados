@@ -10,16 +10,34 @@ Temos então as formas normais, que são:
 3. Evitar atributos que não dependam exclusivamente da chave primária, ou seja, um atributo não chave não deve depender de outro não chave.
 
 ## 2. Adicione um filme à tabela de filmes.
+```sql
+INSERT INTO movies (title, rating, awards, release_date, length) VALUES ("Me Before You", 9.0, 5, '2016-06-16', 120);
+```
 
 ## 3. Adicione um gênero à tabela de gêneros.
+```sql
+INSERT INTO genres (name, ranking, active) VALUES ("Romance", 13, 1);
+```
 
 ## 4. Associe o filme do Ex 2. ao gênero criado no Ex. 3.
+```sql
+UPDATE movies SET genre_id = 13 WHERE id=22;
+```
 
 ## 5. Modifique a tabela de atores para que pelo menos um ator adicione como favorito o filme adicionado no Ex. 2.
+```sql
+INSERT INTO actor_movie (actor_id, movie_id) VALUES (32, 22);
+```
 
 ## 6. Crie uma cópia temporária da tabela de filmes.
+```sql
+CREATE TEMPORARY TABLE new_movies SELECT * FROM movies;
+```
 
 ## 7. Elimine desta tabela temporária todos os filmes que ganharam menos de 5 prêmios.
+```sql
+DELETE FROM new_movies WHERE awards < 5;
+```
 
 ## 8. Obtenha a lista de todos os gêneros que possuem pelo menos um filme.
 
