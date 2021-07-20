@@ -40,13 +40,55 @@ DELETE FROM new_movies WHERE awards < 5;
 ```
 
 ## 8. Obtenha a lista de todos os gêneros que possuem pelo menos um filme.
+```sql
+SELECT g.name FROM genres g INNER JOIN movies m ON(g.id = m.genre_id) GROUP BY g.name;
+```
+| name            |
+|-----------------|
+| Comedia         |
+| Drama           |
+| Ciencia Ficcion |
+| Suspenso        |
+| Animacion       |
+| Aventuras       |
+| Infantiles      |
+| Romance         |
 
 ## 9. Obtenha a lista de atores cujo filme favorito ganhou mais de 3 prêmios.
+```sql
+SELECT a.first_name FROM actors a INNER JOIN actor_movie am ON (a.id = am.actor_id) INNER JOIN movies m ON (m.id = am.movie_id) WHERE m.awards > 3 GROUP BY a.first_name;
+```
+| first_name |
+|------------|
+| Leonardo   |
+| Kate       |
+| Billy      |
+| Mark       |
+| Harrison   |
+| Carrie     |
+| Sam        |
+| Laura      |
+| Jeff       |
+| Sean       |
+| Emilia     |
 
 ## 10. Use o plano de explicação para analisar as consultas nos Ex. 6 e 7.
 
+
 ## 11. O que são os índices? Para que servem?
+É um mecanismo de otimização para consultas, melhorando o acesso aos dados, fornecendo um caminho direto para os dados armazenados para evitar a execução de varreduras completas dos dados de uma tabela. Elas são bem utilizadas quando se sabe quais são os WHERE e JOIN a serem feitos, antecipando eles para melhorar a consulta.
 
 ## 12. Crie um índice sobre o nome na tabela de filmes.
+```sql
+CREATE INDEX movie_title_idx ON movies (title);
+```
 
 ## 13. Verifique se o índice foi criado corretamente.
+```sql
+SHOW INDEX FROM movies;
+```
+| Table  | Non_unique | Key_name                | Seq_in_index | Column_name | Collation | Cardinality | Sub_part | Packed | Null | Index_type | Comment | Index_comment | Visible | Expression |
+|---------|:-------------|:---------------------|:--------------|:------------|:----------|:------------|:----------|:--------|:---------|:-----------|:-------- |:--------------|:-----------|:--------------:|
+| movies |          0 | PRIMARY                 |            1 | id          | A         |          21 |     NULL |   NULL |      | BTREE      |         |               | YES     | NULL       |
+| movies |          1 | movies_genre_id_foreign |            1 | genre_id    | A         |           8 |     NULL |   NULL | YES  | BTREE      |         |               | YES     | NULL       |
+| movies |          1 | movie_title_idx         |            1 | title       | A         |          22 |     NULL |   NULL |      | BTREE      |         |               | YES     | NULL       |
