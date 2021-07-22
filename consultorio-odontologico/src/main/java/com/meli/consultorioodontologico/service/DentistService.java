@@ -10,7 +10,6 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class DentistService {
@@ -30,6 +29,16 @@ public class DentistService {
                 Dentist.class
         );
         query.setParameter("pDay", dia);
+        return query.getResultList();
+    }
+
+    public List<Diary> listaAgendaDentista(Long id) {
+        EntityManager em = factory.createEntityManager();
+        TypedQuery<Diary> query = em.createQuery(
+                "SELECT d FROM Diary d WHERE d.dentist.id = :pId",
+                Diary.class
+        );
+        query.setParameter("pId", id);
         return query.getResultList();
     }
 

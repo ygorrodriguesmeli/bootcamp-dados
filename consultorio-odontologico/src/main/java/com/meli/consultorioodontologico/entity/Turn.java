@@ -21,6 +21,9 @@ public class Turn {
     @ManyToOne
     private Patient patient;
 
+    @OneToOne
+    private Turn reprogramTurn;
+
     public Turn(String day, Diary diary, TurnStatus status, Patient patient) {
         this.day = day;
         this.diary = diary;
@@ -28,11 +31,23 @@ public class Turn {
         this.patient = patient;
     }
 
+    public Turn(String day, Diary diary, TurnStatus status, Patient patient, Turn turn) {
+        this.day = day;
+        this.diary = diary;
+        this.status = status;
+        this.patient = patient;
+        this.reprogramTurn = turn;
+    }
+
     public Turn() {
     }
 
     public Long getId() {
         return id;
+    }
+
+    public String getDay() {
+        return day;
     }
 
     public Diary getDiary() {
@@ -46,6 +61,8 @@ public class Turn {
     public Patient getPatient() {
         return patient;
     }
+
+    public Turn getReprogramTurn() { return reprogramTurn; }
 
     @Override
     public String toString() {
