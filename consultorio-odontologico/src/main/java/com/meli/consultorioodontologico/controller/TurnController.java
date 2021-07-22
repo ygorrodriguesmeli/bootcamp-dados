@@ -3,13 +3,12 @@ package com.meli.consultorioodontologico.controller;
 import com.meli.consultorioodontologico.entity.Turn;
 import com.meli.consultorioodontologico.service.TurnService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -19,14 +18,15 @@ public class TurnController {
     @Autowired
     private TurnService service;
 
-    @GetMapping
+    @GetMapping("/concluded")
     public ResponseEntity<List<Turn>> listaTurnosConcluidos() {
         return new ResponseEntity<>(service.listarTurnosConcluidos(), HttpStatus.OK);
     }
 
-    @GetMapping("/{dia}")
-    public ResponseEntity<List<Turn>> listaTurnosPendentesDoDia(@PathVariable String dia) {
-        return new ResponseEntity<>(service.listarTurnosPendentesDoDia(dia), HttpStatus.OK);
+    @GetMapping("/pendent")
+    public ResponseEntity<List<Turn>> listaTurnosPendentesDoDia(
+            @RequestParam("date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
+        return new ResponseEntity<>(service.listarTurnosPendentesDoDia(date), HttpStatus.OK);
     }
 
     @GetMapping("/reprogram")

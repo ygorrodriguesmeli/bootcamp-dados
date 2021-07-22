@@ -9,6 +9,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -16,7 +17,7 @@ public class DentistService {
 
     private final EntityManagerFactory factory = Persistence.createEntityManagerFactory("consultorio");
 
-    public List<Dentist> listaDentistasComMaisDeDoisTurnos(String dia) {
+    public List<Dentist> listaDentistasComMaisDeDoisTurnos(LocalDate date) {
         EntityManager em = factory.createEntityManager();
         TypedQuery<Dentist> query = em.createQuery(
                 "SELECT de " +
@@ -28,15 +29,17 @@ public class DentistService {
                         "HAVING count (d.dentist) > 2",
                 Dentist.class
         );
-        query.setParameter("pDay", dia);
+        query.setParameter("pDay", date);
         return query.getResultList();
     }
 
-    public List<Diary> listaAgendaDentista(Long id) {
+    public List<Turn> listaAgendaDentista(Long id) {
         EntityManager em = factory.createEntityManager();
-        TypedQuery<Diary> query = em.createQuery(
-                "SELECT d FROM Diary d WHERE d.dentist.id = :pId",
-                Diary.class
+        TypedQuery<Turn> query = em.createQuery(
+                "SELECT t FROM Turn t " +
+                        "INNER JOIN Diary d ON(d = t.diary)" +
+                        "WHERE d.dentist.id = :pId",
+                Turn.class
         );
         query.setParameter("pId", id);
         return query.getResultList();

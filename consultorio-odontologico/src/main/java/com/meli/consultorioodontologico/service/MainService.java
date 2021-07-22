@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -43,16 +44,16 @@ public class MainService {
         Diary diary8 = new Diary(new Date(), new Date(Calendar.getInstance().getTimeInMillis() + (30 * 60 * 1000)), dentist2);
         Diary diary9 = new Diary(new Date(), new Date(Calendar.getInstance().getTimeInMillis() + (30 * 60 * 1000)), dentist2);
 
-        Turn turn1 = new Turn("22", diary1, turnStatus1, patient1);
-        Turn turn2 = new Turn("23", diary2, turnStatus3, patient2);
-        Turn turn3 = new Turn("22", diary3, turnStatus2, patient3);
-        Turn turn4 = new Turn("22", diary4, turnStatus3, patient4);
-        Turn turn5 = new Turn("22", diary5, turnStatus1, patient5);
-        Turn turn6 = new Turn("22", diary6, turnStatus1, patient5);
-        Turn turn7 = new Turn("23", diary7, turnStatus1, patient5);
+        Turn turn1 = new Turn(LocalDate.of(2021, 7, 22), diary1, turnStatus1, patient1);
+        Turn turn2 = new Turn(LocalDate.of(2021, 7, 23), diary2, turnStatus3, patient2);
+        Turn turn3 = new Turn(LocalDate.of(2021, 7, 22), diary3, turnStatus2, patient3);
+        Turn turn4 = new Turn(LocalDate.of(2021, 7, 22), diary4, turnStatus3, patient4);
+        Turn turn5 = new Turn(LocalDate.of(2021, 7, 22), diary5, turnStatus1, patient5);
+        Turn turn6 = new Turn(LocalDate.of(2021, 7, 22), diary6, turnStatus1, patient5);
+        Turn turn7 = new Turn(LocalDate.of(2021, 7, 23), diary7, turnStatus1, patient5);
 
-        Turn turn9 = new Turn("25", diary9, turnStatus3, patient4);
-        Turn turn8 = new Turn("24", diary8, turnStatus4, patient4, turn9);
+        Turn turn9 = new Turn(LocalDate.of(2021, 7, 25), diary9, turnStatus3, patient4);
+        Turn turn8 = new Turn(LocalDate.of(2021, 7, 24), diary8, turnStatus4, patient4, turn9);
 
         em.getTransaction().begin();
 

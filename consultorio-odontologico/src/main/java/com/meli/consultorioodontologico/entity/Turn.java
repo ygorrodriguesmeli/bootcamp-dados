@@ -1,7 +1,7 @@
 package com.meli.consultorioodontologico.entity;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDate;
 
 @Entity
 public class Turn {
@@ -10,7 +10,7 @@ public class Turn {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String day;
+    private LocalDate day;
 
     @ManyToOne
     private Diary diary;
@@ -24,14 +24,14 @@ public class Turn {
     @OneToOne
     private Turn reprogramTurn;
 
-    public Turn(String day, Diary diary, TurnStatus status, Patient patient) {
+    public Turn(LocalDate day, Diary diary, TurnStatus status, Patient patient) {
         this.day = day;
         this.diary = diary;
         this.status = status;
         this.patient = patient;
     }
 
-    public Turn(String day, Diary diary, TurnStatus status, Patient patient, Turn turn) {
+    public Turn(LocalDate day, Diary diary, TurnStatus status, Patient patient, Turn turn) {
         this.day = day;
         this.diary = diary;
         this.status = status;
@@ -46,7 +46,7 @@ public class Turn {
         return id;
     }
 
-    public String getDay() {
+    public LocalDate getDay() {
         return day;
     }
 

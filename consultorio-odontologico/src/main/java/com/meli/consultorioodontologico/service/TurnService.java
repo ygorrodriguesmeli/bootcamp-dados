@@ -7,6 +7,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -23,13 +24,13 @@ public class TurnService {
         return query.getResultList();
     }
 
-    public List<Turn> listarTurnosPendentesDoDia(String dia) {
+    public List<Turn> listarTurnosPendentesDoDia(LocalDate date) {
         EntityManager em = factory.createEntityManager();
         TypedQuery<Turn> query = em.createQuery(
                 "SELECT t FROM Turn t INNER JOIN TurnStatus ts ON t.status.id = ts.id WHERE ts.id = 3 AND t.day = :pDia",
                 Turn.class
         );
-        query.setParameter("pDia", dia);
+        query.setParameter("pDia", date);
         return query.getResultList();
     }
 

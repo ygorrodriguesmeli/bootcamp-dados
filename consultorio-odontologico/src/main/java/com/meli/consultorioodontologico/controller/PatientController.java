@@ -3,10 +3,12 @@ package com.meli.consultorioodontologico.controller;
 import com.meli.consultorioodontologico.entity.Patient;
 import com.meli.consultorioodontologico.service.PatientService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -21,9 +23,9 @@ public class PatientController {
         service.cadastra(patient);
     }
 
-    @GetMapping("/{dia}")
-    public ResponseEntity<List<Patient>> listaPacientesDeUmDia(@PathVariable String dia) {
-        return new ResponseEntity<>(service.listaPacientesDeUmDia(dia), HttpStatus.OK);
+    @GetMapping
+    public ResponseEntity<List<Patient>> listaPacientesDeUmDia(@RequestParam("date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
+        return new ResponseEntity<>(service.listaPacientesDeUmDia(date), HttpStatus.OK);
     }
 
 }

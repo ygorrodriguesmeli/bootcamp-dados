@@ -9,6 +9,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -28,12 +29,16 @@ public class PatientService {
         em.getTransaction().commit();
     }
 
-    public List<Patient> listaPacientesDeUmDia(String dia) {
+    public List<Patient> listaPacientesDeUmDia(LocalDate day) {
         EntityManager em = factory.createEntityManager();
-        TypedQuery<Turn> query = em.createQuery("SELECT t FROM Turn t WHERE t.day = :pDay", Turn.class);
-        query.setParameter("pDay", dia);
-        List<Turn> turns = query.getResultList();
-        return turns.stream().map(Turn::getPatient).collect(Collectors.toList());
+        TypedQuery<Patient> query = em.createQuery(
+                "SELECT DISTINCT p FROM Patient p " +
+                        "INNER JOIN Turn t ON(p = t.patient) " +
+                        "WHERE t.day = :pDay",
+                Patient.class
+        );
+        query.setParameter("pDay", day);
+        return query.getResultList();
     }
 
 }
