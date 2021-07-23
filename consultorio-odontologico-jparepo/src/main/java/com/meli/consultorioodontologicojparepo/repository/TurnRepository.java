@@ -16,5 +16,7 @@ public interface TurnRepository extends JpaRepository<Turn, Long> {
 
     List<Turn> findAllByStatusAndDay(TurnStatus status, LocalDate date);
 
-    List<Turn> findAllByStatusAndDiary_Dentist(TurnStatus status, Dentist dentist);
+    List<Turn> findAllByStatusAndDiary_DentistId(TurnStatus status, Long id);
+
+    List<Turn> findAllByDiary_Dentist(Dentist dentist);
 }

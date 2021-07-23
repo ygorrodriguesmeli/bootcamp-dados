@@ -16,13 +16,11 @@ public class TurnService {
 
     private final TurnRepository repository;
     private final TurnStatusService turnStatusService;
-    private final DentistService dentistService;
 
     @Autowired
-    public TurnService(TurnRepository repository, TurnStatusService turnStatusService, DentistService dentistService) {
+    public TurnService(TurnRepository repository, TurnStatusService turnStatusService) {
         this.repository = repository;
         this.turnStatusService = turnStatusService;
-        this.dentistService = dentistService;
     }
 
     public void cadastra(Turn turn) {
@@ -46,7 +44,10 @@ public class TurnService {
 
     public List<Turn> listaTurnosRemarcadosDeDentista(Long id) {
         TurnStatus status = turnStatusService.findById(4L);
-        Dentist dentist = dentistService.findById(id);
-        return repository.findAllByStatusAndDiary_Dentist(status, dentist);
+        return repository.findAllByStatusAndDiary_DentistId(status, id);
+    }
+
+    public List<Turn> listaAgendaDentista(Dentist dentist) {
+        return repository.findAllByDiary_Dentist(dentist);
     }
 }

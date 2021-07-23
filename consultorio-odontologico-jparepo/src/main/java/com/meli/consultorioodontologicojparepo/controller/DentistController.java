@@ -19,15 +19,15 @@ public class DentistController {
     @Autowired
     private DentistService service;
 
-//    @GetMapping("/turn")
-//    public ResponseEntity<List<Dentist>> listaDentistasComMaisDeDoisTurnos(
-//            @RequestParam("date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
-//        return new ResponseEntity<>(service.listaDentistasComMaisDeDoisTurnos(date), HttpStatus.OK);
-//    }
-//
-//    @GetMapping("/{id}/diary")
-//    public ResponseEntity<List<Turn>> listaAgendaDentista(@PathVariable Long id) {
-//        return new ResponseEntity<>(service.listaAgendaDentista(id), HttpStatus.OK);
-//    }
+    @GetMapping("/turn")
+    public ResponseEntity<List<Dentist>> listaDentistasComMaisDeDoisTurnos(
+            @RequestParam("date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
+        return new ResponseEntity<>(service.listaDentistasComMaisDeDoisTurnos(date), HttpStatus.OK);
+    }
+
+    @GetMapping("/{id}/diary")
+    public ResponseEntity<List<Turn>> listaAgendaDentista(@PathVariable Long id) {
+        return new ResponseEntity<>(service.listaAgendaDentista(id), HttpStatus.OK);
+    }
 
 }
