@@ -23,9 +23,9 @@ public class PatientController {
         service.cadastra(patient);
     }
 
-//    @GetMapping
-//    public ResponseEntity<List<Patient>> listaPacientesDeUmDia(@RequestParam("date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
-//        return new ResponseEntity<>(service.listaPacientesDeUmDia(date), HttpStatus.OK);
-//    }
+    @GetMapping
+    public ResponseEntity<List<Patient>> listaPacientesDeUmDia(@RequestParam("date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
+        return new ResponseEntity<>(service.listaPacientesDeUmDia(date), HttpStatus.OK);
+    }
 
 }

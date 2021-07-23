@@ -1,5 +1,7 @@
 package com.meli.consultorioodontologicojparepo.service;
 
+import com.meli.consultorioodontologicojparepo.entity.Dentist;
+import com.meli.consultorioodontologicojparepo.entity.Patient;
 import com.meli.consultorioodontologicojparepo.entity.Turn;
 import com.meli.consultorioodontologicojparepo.entity.TurnStatus;
 import com.meli.consultorioodontologicojparepo.repository.TurnRepository;
@@ -14,11 +16,13 @@ public class TurnService {
 
     private final TurnRepository repository;
     private final TurnStatusService turnStatusService;
+    private final DentistService dentistService;
 
     @Autowired
-    public TurnService(TurnRepository repository, TurnStatusService turnStatusService) {
+    public TurnService(TurnRepository repository, TurnStatusService turnStatusService, DentistService dentistService) {
         this.repository = repository;
         this.turnStatusService = turnStatusService;
+        this.dentistService = dentistService;
     }
 
     public void cadastra(Turn turn) {
@@ -33,5 +37,16 @@ public class TurnService {
     public List<Turn> listarTurnosPendentesDoDia(LocalDate date) {
         TurnStatus status = turnStatusService.findById(3L);
         return repository.findAllByStatusAndDay(status, date);
+    }
+
+    public List<Turn> listarTurnosRemarcados() {
+        TurnStatus status = turnStatusService.findById(4L);
+        return repository.findAllByStatus(status);
+    }
+
+    public List<Turn> listaTurnosRemarcadosDeDentista(Long id) {
+        TurnStatus status = turnStatusService.findById(4L);
+        Dentist dentist = dentistService.findById(id);
+        return repository.findAllByStatusAndDiary_Dentist(status, dentist);
     }
 }

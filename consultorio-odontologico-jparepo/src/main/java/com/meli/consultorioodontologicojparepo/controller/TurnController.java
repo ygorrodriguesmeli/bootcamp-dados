@@ -28,15 +28,15 @@ public class TurnController {
             @RequestParam("date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
         return new ResponseEntity<>(service.listarTurnosPendentesDoDia(date), HttpStatus.OK);
     }
-//
-//    @GetMapping("/reprogram")
-//    public ResponseEntity<List<Turn>> listaTurnosRemarcados() {
-//        return new ResponseEntity<>(service.listarTurnosRemarcados(), HttpStatus.OK);
-//    }
-//
-//    @GetMapping("/reprogram/dentist/{id}")
-//    public ResponseEntity<List<Turn>> listaTurnosPendentesDoDia(@PathVariable Long id) {
-//        return new ResponseEntity<>(service.listaTurnosRemarcadosDeDentista(id), HttpStatus.OK);
-//    }
+
+    @GetMapping("/reprogram")
+    public ResponseEntity<List<Turn>> listaTurnosRemarcados() {
+        return new ResponseEntity<>(service.listarTurnosRemarcados(), HttpStatus.OK);
+    }
+
+    @GetMapping("/reprogram/dentist/{id}")
+    public ResponseEntity<List<Turn>> listaTurnosPendentesDoDia(@PathVariable Long id) {
+        return new ResponseEntity<>(service.listaTurnosRemarcadosDeDentista(id), HttpStatus.OK);
+    }
 
 }

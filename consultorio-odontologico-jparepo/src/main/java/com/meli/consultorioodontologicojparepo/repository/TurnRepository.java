@@ -1,5 +1,6 @@
 package com.meli.consultorioodontologicojparepo.repository;
 
+import com.meli.consultorioodontologicojparepo.entity.Dentist;
 import com.meli.consultorioodontologicojparepo.entity.Turn;
 import com.meli.consultorioodontologicojparepo.entity.TurnStatus;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -15,4 +16,5 @@ public interface TurnRepository extends JpaRepository<Turn, Long> {
 
     List<Turn> findAllByStatusAndDay(TurnStatus status, LocalDate date);
 
+    List<Turn> findAllByStatusAndDiary_Dentist(TurnStatus status, Dentist dentist);
 }
